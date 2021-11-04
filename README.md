@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Final Project Proposal @Springboard
 
 ## What tech stack will you use for your final project? We recommend that you use React and Node for this project, however if you are extremely interested in becoming a Python developer you are welcome to use Python/Flask for this project.
@@ -156,6 +155,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 
-=======
-# Capstone2_Inventory_App
->>>>>>> origin/main
