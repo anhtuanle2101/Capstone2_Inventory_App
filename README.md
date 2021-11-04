@@ -16,60 +16,62 @@
 ### 6. What data do you plan on using? How are you planning on collecting your data? You may have not picked your actual API yet, which is fine, just outline what kind of data you would like it to contain. You are welcome to create your own API and populate it with data. If you are using a Python/Flask stack are required to create your own API. 
     - I might create an API with user authentication/ authorization, data input/output between the client and the database ( save/get inventory items to/from databases), data processing ( create insight graphs/ analysis on data ), etc. with a possible of populating data for the different item’s description or using data processing function helper from different APIs.
 ### 7. In brief, outline your approach to creating your project (knowing that you may not know everything in advance and that these details might change later). Answer questions like the ones below, but feel free to add more information: 
-#### a. What does your database schema look like? 
-    - **Users** {
+#### a. What does your database schema look like?
+
+- **Users** {
         Id (PK): int
         Username*: varchar unique
         Password*: varchar
         Email*: varchar (email validator)
         is_admin*: boolean 
     }
-    - **Items** {
+- **Items** {
         Id (PK): int
         Name*: varchar
         Description: varchar 
-        Department (FK to departments.code)*: varchar(3)
+        Department*(FK to `departments.code`): varchar(3)
     }
-    - **Departments** {
+- **Departments** {
         Id (PK): int
         Code*: varchar(3) 
         Description: varchar
     }
-    - **Inventories** {
+- **Inventories** {
         Id (PK): int
         name*: varchar
         inventory_date*: datetime
         complate_flag*: boolean
-        templated_by(FK to template_lists.id): int
-        inventory_by*(FK to users.id): int
+        templated_by*(FK to `template_lists.id`): int
+        inventory_by*(FK to `users.id`): int
     }
-    - **Inventories_Items** {
-        Inventory_id (PK, FK to inventories.id): int
+- **Inventories_Items** {
+        Inventory_id (PK, FK to `inventories.id`): int
         item_id(PK, FK to items.id): int
         Quantity*: int default = 0 | last_quantity
         quantity_flag*: boolean
         complete_flag*: boolean
     }
-    - **Template_Lists** {
+- **Template_Lists** {
         Id (PK): int
         name*: varchar
         Description: varchar
         created_date*: datetime
-        created_by*(FK to users.id): int
+        created_by*(FK to `users.id`): int
     }
-    - **Users_Lists** {
-        user_id(FK users.id): int
-        list_id(FK lists.id): int
+- **Users_Lists** {
+        user_id(PK, FK `users.id`): int
+        list_id(PK, FK `lists.id`): int
         read_access*: boolean
         edit_access*: boolean
         delete_access*: boolean
     }
-    - **Items_Lists** {
-        item_id(PK, FK items.id): int
-        list_id(PK, FK template_list.id): int
+- **Items_Lists** {
+        item_id(PK, FK to `items.id`): int
+        list_id(PK, FK to `template_list.id`): int
         quantity_lower_bound*: int
         last_quantity*: int
     }
+
 #### b. What kinds of issues might you run into with your API? This is especially important if you are creating your own API, web scraping produces notoriously messy data. 
     - I might run into issues with analysing the data from inventory, which is that I do not have a large dataset in the beginning, so it won’t be very effective. Also, as I use an outside API for the analysis, very high chances that the inventory items data schema won’t match.
     
@@ -103,11 +105,11 @@
 
 #### Database Schema 
 
-    - **Link:** [Inventory Database Schema] (https://dbdiagram.io/d/6184117cd5d522682df909e2)
+**Link:** [Inventory Database Schema](https://dbdiagram.io/d/6184117cd5d522682df909e2)
 
 #### Figma Prototype
 
-    - **Link:** [Inventory App Figma Prototype] (https://www.figma.com/file/6XQrQmTnFBX0mGSgAsc3dw/Inventory-App-Figma-Prototyping?node-id=0%3A1)
+**Link:** [Inventory App Figma Prototype](https://www.figma.com/file/6XQrQmTnFBX0mGSgAsc3dw/Inventory-App-Figma-Prototyping?node-id=0%3A1)
 
 ### Getting Started with Create React App
 
