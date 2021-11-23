@@ -11,6 +11,8 @@ const { checkValidator } = require("../helper/helperFunc");
 const { BadRequestError } = require("../expressError");
 const { route } = require("../app");
 const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
+const userNewSchema = require("../schemas/userNew.json");
+const userPatchSchema = require("../schemas/userPatch.json");
 
 
 const router = new express.Router();

@@ -10,6 +10,8 @@ const router = new express.Router();
 const { createToken } = require("../helper/tokens");
 const { BadRequestError } = require("../expressError");
 const { checkValidator } = require("../helper/helperFunc");
+const authSchema = require("../schemas/auth.json");
+const registerSchema = require("../schemas/register.json");
 
 /** POST /auth/token: { username, password } => { token }
  * 
