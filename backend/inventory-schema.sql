@@ -55,3 +55,10 @@ CREATE TABLE inventories_items (
     quantity INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY(inventory_id, item_id)
 );
+
+CREATE TABLE templates_items (
+    template_id INTEGER REFERENCES templates(id) ON DELETE CASCADE,
+    item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
+    quantity INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY(template_id, item_id)
+)
