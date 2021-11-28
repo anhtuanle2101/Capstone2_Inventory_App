@@ -5,13 +5,12 @@
 const jsonschema = require("jsonschema");
 
 const express = require("express");
-const User = require("../model/user");
+const User = require("../models/user");
 const { createToken } = require("../helper/tokens");
 const { checkValidator } = require("../helper/helperFunc");
 const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const userNewSchema = require("../schemas/userNew.json");
 const userPatchSchema = require("../schemas/userPatch.json");
-
 
 const router = new express.Router();
 
@@ -27,7 +26,7 @@ const router = new express.Router();
 */
 router.post("/", ensureAdmin, async (req, res, next) => {
     try {
-        const validator = jsonshema.validate(req.body, userNewSchema);
+        const validator = jsonschema.validate(req.body, userNewSchema);
         checkValidator(validator);
         
         const user = await User.register(req.body);
@@ -80,7 +79,7 @@ router.get("/:username", ensureCorrectUserOrAdmin, async (req, res, next) =>{
 */
 router.patch("/:username", ensureCorrectUserOrAdmin, async (req, res, next) =>{
     try {
-        const validator = jsonschema.validate(rea.body, userPatchSchema);
+        const validator = jsonschema.validate(req.body, userPatchSchema);
         checkValidator(validator);
         
         const user = await User.update(req.params.username, req.body);
