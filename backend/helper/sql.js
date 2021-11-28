@@ -6,11 +6,11 @@ const { BadRequestError } = require("../expressError");
  * @param {*} jsToSql {Object} maps js-style data fields to database column names
  *  for example { firstName: "first_name", age: "age" }
  * 
- * @returns {Object} { sqlSetColsString, values }
+ * @returns {Object} { setCols, values }
  * 
  * @example dataToUpdate = { firstName: "test", age: 22 } 
  *          jsToSql = { firstName: "first_name", age: "age"}
- *      =>{ sqlSetColsString: `"first_name"=$1, "age"=$2`,
+ *      =>{ setCols: `"first_name"=$1, "age"=$2`,
  *          values: ["test", 22] }
  */
 
@@ -24,7 +24,7 @@ function sqlForPartialUpdate(dataToUpdate, jsToSql) {
   );
 
   return {
-    sqlSetColsString: cols.join(", "),
+    setCols: cols.join(", "),
     values: Object.values(dataToUpdate)
   };
 }

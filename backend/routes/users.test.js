@@ -28,12 +28,12 @@ describe("POST /users", function () {
         const resp = await request(app)
             .post("/users")
             .send({
-            username: "u-new",
-            firstName: "First-new",
-            lastName: "Last-newL",
-            password: "password-new",
-            email: "new@email.com",
-            isAdmin: false,
+                username: "u-new",
+                firstName: "First-new",
+                lastName: "Last-newL",
+                password: "password-new",
+                email: "new@email.com",
+                isAdmin: false,
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(201);
@@ -52,12 +52,12 @@ describe("POST /users", function () {
         const resp = await request(app)
             .post("/users")
             .send({
-            username: "u-new",
-            firstName: "First-new",
-            lastName: "Last-newL",
-            password: "password-new",
-            email: "new@email.com",
-            isAdmin: true,
+                username: "u-new",
+                firstName: "First-new",
+                lastName: "Last-newL",
+                password: "password-new",
+                email: "new@email.com",
+                isAdmin: true,
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(201);
@@ -76,12 +76,12 @@ describe("POST /users", function () {
         const resp = await request(app)
             .post("/users")
             .send({
-            username: "u-new",
-            firstName: "First-new",
-            lastName: "Last-newL",
-            password: "password-new",
-            email: "new@email.com",
-            isAdmin: true,
+                username: "u-new",
+                firstName: "First-new",
+                lastName: "Last-newL",
+                password: "password-new",
+                email: "new@email.com",
+                isAdmin: true,
             })
             .set("authorization", `Bearer ${u1Token}`);
         expect(resp.statusCode).toEqual(401);
@@ -91,12 +91,12 @@ describe("POST /users", function () {
         const resp = await request(app)
             .post("/users")
             .send({
-            username: "u-new",
-            firstName: "First-new",
-            lastName: "Last-newL",
-            password: "password-new",
-            email: "new@email.com",
-            isAdmin: true,
+                username: "u-new",
+                firstName: "First-new",
+                lastName: "Last-newL",
+                password: "password-new",
+                email: "new@email.com",
+                isAdmin: true,
             });
         expect(resp.statusCode).toEqual(401);
     });
@@ -115,12 +115,12 @@ describe("POST /users", function () {
         const resp = await request(app)
             .post("/users")
             .send({
-            username: "u-new",
-            firstName: "First-new",
-            lastName: "Last-newL",
-            password: "password-new",
-            email: "not-an-email",
-            isAdmin: true,
+                username: "u-new",
+                firstName: "First-new",
+                lastName: "Last-newL",
+                password: "password-new",
+                email: "not-an-email",
+                isAdmin: true,
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(400);
@@ -137,25 +137,25 @@ describe("POST /users", function () {
         expect(resp.body).toEqual({
         users: [
             {
-            username: "u1",
-            firstName: "U1F",
-            lastName: "U1L",
-            email: "user1@user.com",
-            isAdmin: false,
+                username: "u1",
+                firstName: "U1F",
+                lastName: "U1L",
+                email: "user1@user.com",
+                isAdmin: false,
             },
             {
-            username: "u2",
-            firstName: "U2F",
-            lastName: "U2L",
-            email: "user2@user.com",
-            isAdmin: false,
+                username: "u2",
+                firstName: "U2F",
+                lastName: "U2L",
+                email: "user2@user.com",
+                isAdmin: false,
             },
             {
-            username: "u3",
-            firstName: "U3F",
-            lastName: "U3L",
-            email: "user3@user.com",
-            isAdmin: false,
+                username: "u3",
+                firstName: "U3F",
+                lastName: "U3L",
+                email: "user3@user.com",
+                isAdmin: false,
             },
         ],
         });
@@ -283,7 +283,7 @@ describe("POST /users", function () {
         const resp = await request(app)
             .patch(`/users/u1`)
             .send({
-            firstName: "New",
+                firstName: "New"
             })
             .set("authorization", `Bearer ${u2Token}`);
         expect(resp.statusCode).toEqual(401);
@@ -293,7 +293,7 @@ describe("POST /users", function () {
         const resp = await request(app)
             .patch(`/users/u1`)
             .send({
-            firstName: "New",
+                firstName: "New"
             });
         expect(resp.statusCode).toEqual(401);
     });
@@ -302,7 +302,7 @@ describe("POST /users", function () {
         const resp = await request(app)
             .patch(`/users/nope`)
             .send({
-            firstName: "Nope",
+                firstName: "Nope"
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(404);
@@ -312,7 +312,7 @@ describe("POST /users", function () {
         const resp = await request(app)
             .patch(`/users/u1`)
             .send({
-            firstName: 42,
+                firstName: 42
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(400);
@@ -322,7 +322,7 @@ describe("POST /users", function () {
         const resp = await request(app)
             .patch(`/users/u1`)
             .send({
-            password: "new-password",
+                password: "new-password"
             })
             .set("authorization", `Bearer ${adminToken}`);
         expect(resp.body).toEqual({

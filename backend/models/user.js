@@ -57,8 +57,7 @@ class User {
    * Throws BadRequestError on duplicates.
    **/
 
-  static async register(
-      { username, password, firstName, lastName, email, isAdmin }) {
+  static async register({ username, password, firstName, lastName, email, isAdmin }) {
     const duplicateCheck = await db.query(
           `SELECT username
            FROM users
@@ -181,6 +180,7 @@ class User {
                                 last_name AS "lastName",
                                 email,
                                 is_admin AS "isAdmin"`;
+    console.log(querySql);
     const result = await db.query(querySql, [...values, username]);
     const user = result.rows[0];
 

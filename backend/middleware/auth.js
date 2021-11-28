@@ -61,8 +61,8 @@ const ensureAdmin = (req, res, next) =>{
  */
 const ensureCorrectUserOrAdmin = (req, res, next) => {
     try {
-        const user = req.locals.user;
-        if (!(user && (user.isAdmin || user.name === req.params.username))) throw new UnauthorizedError();
+        const user = res.locals.user;
+        if (!(user && (user.isAdmin || user.username === req.params.username))) throw new UnauthorizedError("Same logged-in user required!");
         return next();
     } catch (err) {
         return next(err);
