@@ -17,7 +17,7 @@ class Template {
      * Throws BadRequestError if template already in database.
      * */
 
-    static async create({ name, description, userId }) {
+    static async create({ name, description, userId, itemList }) {
         const duplicateCheck = await db.query(
             `SELECT name
             FROM templates
@@ -62,8 +62,9 @@ class Template {
 
     /** Given a template id, return data about template.
      *
-     * Returns { id, name, description, createdAt, createdBy }
-     *
+     * Returns { id, name, description, createdAt, createdBy, itemList }
+     * where itemList is [{ id, name, description, deparment, quantity }, ...]
+     * 
      * Throws NotFoundError if not found.
      **/
 
@@ -81,6 +82,16 @@ class Template {
         const template = templateRes.rows[0];
 
         if (!template) throw new NotFoundError(`No template: ${id}`);
+
+        const itemListRes = await db.query(
+            `SELECT i.id, i.name, i.unit, i.description, i.department, ti.quantity
+            FROM items i JOIN templates_items ti ON i.id = ti.item_id
+            WHERE ti.template_id = $1
+            ORDER BY i.id`,
+            [id]
+        )
+
+        template.itemList = itemListRes.rows;
 
         return template;
     }

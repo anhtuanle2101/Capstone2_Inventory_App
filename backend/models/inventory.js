@@ -81,8 +81,9 @@ class Inventory {
 
     /** Given a inventory id, return data about inventory.
      *
-     * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy }
-     *
+     * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy, itemList }
+     * where itemList is [{ id, name, description, deparment, quantity }, ...]
+     * 
      * Throws NotFoundError if not found.
      **/
 
@@ -101,6 +102,16 @@ class Inventory {
         const inventory = inventoryRes.rows[0];
 
         if (!inventory) throw new NotFoundError(`No inventory: ${id}`);
+
+        const itemListRes = await db.query(
+            `SELECT i.id, i.name, i.unit, i.description, i.department, ii.quantity
+            FROM items i JOIN inventories_items ii ON i.id = ii.item_id
+            WHERE ii.template_id = $1
+            ORDER BY i.id`,
+            [id]
+        )
+
+        inventory.itemList = itemListRes.rows;
 
         return inventory;
     }
