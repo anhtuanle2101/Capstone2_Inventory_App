@@ -8,9 +8,7 @@ const express = require("express");
 const User = require("../model/user");
 const { createToken } = require("../helper/tokens");
 const { checkValidator } = require("../helper/helperFunc");
-const { BadRequestError } = require("../expressError");
-const { route } = require("../app");
-const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
+const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const userNewSchema = require("../schemas/userNew.json");
 const userPatchSchema = require("../schemas/userPatch.json");
 

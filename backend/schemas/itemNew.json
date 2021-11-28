@@ -8,21 +8,28 @@
         "minLength": 1,
         "maxLength": 30
       },
+      "unit": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
       "desciption": {
         "type": "string",
         "minLength": 5,
         "maxLength": 150
       },
-      "createdBy":{
+      "department": {
         "type": "string",
-        "minLength": 1,
-        "maxLength": 30
+        "minLength": 3,
+        "maxLength": 3
       }
     },
     "additionalProperties": false,
     "required": [
       "name",
-      "description"
+      "unit",
+      "description",
+      "deparment"
     ]
   }
   

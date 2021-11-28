@@ -3,17 +3,17 @@
     "$id": "",
     "type": "object",
     "properties": {
-      "name": {
+      "title": {
         "type": "string",
         "minLength": 1,
         "maxLength": 30
       },
-      "desciption": {
+      "templatedBy": {
         "type": "string",
-        "minLength": 5,
-        "maxLength": 150
+        "minLength": 1,
+        "maxLength": 30
       },
-      "createdBy":{
+      "inventoryBy": {
         "type": "string",
         "minLength": 1,
         "maxLength": 30
@@ -21,8 +21,9 @@
     },
     "additionalProperties": false,
     "required": [
-      "name",
-      "description"
+      "title",
+      "templatedBy",
+      "inventoryBy"
     ]
   }
   

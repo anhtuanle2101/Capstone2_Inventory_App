@@ -43,7 +43,7 @@ class Template {
         return template;
     }
 
-    /** Find all templates (optional filter on searchFilters).
+    /** Find all templates.
      *
      * Returns [{ id, name, description, createdAt, createdBy }, ...]
      * */
@@ -81,16 +81,6 @@ class Template {
         const template = templateRes.rows[0];
 
         if (!template) throw new NotFoundError(`No template: ${id}`);
-
-        // const jobsRes = await db.query(
-        //     `SELECT id, title, salary, equity
-        //     FROM jobs
-        //     WHERE template_handle = $1
-        //     ORDER BY id`,
-        //     [handle],
-        // );
-
-        // template.jobs = jobsRes.rows;
 
         return template;
     }

@@ -33,7 +33,7 @@ CREATE TABLE departments (
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT UNIQUE NOT NULL,
     unit VARCHAR(10) NOT NULL,
     description TEXT,
     department VARCHAR(3) REFERENCES departments(code) ON DELETE CASCADE

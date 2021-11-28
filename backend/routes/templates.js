@@ -4,11 +4,11 @@ const jsonschema = require("jsonschema");
 
 const express = require("express");
 const router = new express.Router();
-const { BadRequestError } = require("../expressError");
 const { checkValidator } = require("../helper/helperFunc");
-const { ensureLoggedIn } = require("../middleware/auth");
+const { ensureAdmin } = require("../middleware/auth");
 const templateNewSchema = require("../schemas/templateNew.json");
 const templatePatchSchema = require("../schemas/templatePatch.json");
+const Template = require("../models/template");
 
 /** POST /templates { template } => { template } 
  * 
@@ -17,7 +17,7 @@ const templatePatchSchema = require("../schemas/templatePatch.json");
  * 
  * Authorization required: admin
 */
-router.post("/", async (req, res, next) =>{
+router.post("/", ensureAdmin, async (req, res, next) =>{
     try {
         const validator = jsonschema.validate(req.body, templateNewSchema);
         checkValidator(validator);
@@ -35,7 +35,7 @@ router.post("/", async (req, res, next) =>{
  * 
  * Authorization required: logged-in users
  */
-router.get("/", ensureLoggedIn, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         const templates = await Template.findAll();
         return res.json({ templates });
@@ -49,9 +49,9 @@ router.get("/", ensureLoggedIn, async (req, res, next) => {
  * Returns { id, name, description, createdAt, createdBy, itemList }
  * where itemList is { itemList: [ { id, name, unit, description, deparment, quantity }, ... ] }
  * 
- * Authorization required: admin or read-permitted users
+ * Authorization required: none
 */
-router.get("/:id", ensurePermittedOrAdmin, async (req, res, next) =>{
+router.get("/:id", async (req, res, next) =>{
     try {
         const template = await Template.get(req.params.id);
         return res.json({ template });
@@ -67,9 +67,9 @@ router.get("/:id", ensurePermittedOrAdmin, async (req, res, next) =>{
  * 
  * Returns { id, name, description, createdAt, createdBy }
  * 
- * Authorization required: admin or edit-permitted user
+ * Authorization required: admin
  */
-router.patch("/:id", ensurePermittedOrAdmin, async (req, res, next) => {
+router.patch("/:id", ensureAdmin, async (req, res, next) => {
     try {
         const validator = jsonschema(req.body, templatePatchSchema);
         checkValidator(validator);
@@ -83,9 +83,9 @@ router.patch("/:id", ensurePermittedOrAdmin, async (req, res, next) => {
 
 /** DELETE /templates/:id => { deleted: id }
  * 
- * Authorization required: admin or delete-permitted user
+ * Authorization required: admin
  */
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", ensureAdmin, async (req, res, next) => {
     try {
         await Template.remove(req.params.id);
         return res.json({ deleted: req.params.id });
