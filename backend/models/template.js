@@ -10,9 +10,13 @@ class Template {
 
     /** Create a template (from data), update db, return new template data.
      *
-     * data should be { name, description, userId }
+     * data should be { name, description, userId, itemList }
+     * 
+     * and itemList should be [{ id, quantity }, ...]
      *
-     * Returns { id, name, description, createdAt, createdBy }
+     * Returns { id, name, description, createdAt, createdBy, itemList }
+     * 
+     * and itemList should be [{ item_id, name, unit, description, department, quantity }, ...]
      *
      * Throws BadRequestError if template already in database.
      * */
@@ -39,8 +43,55 @@ class Template {
             ],
         );
         const template = result.rows[0];
+        template.itemList = [];
+
+        for (let item of itemList){
+            const itemResult = await this.addItem(template.id, item.id, item.quantity);
+
+            template.itemList.push(itemResult);
+        }
 
         return template;
+    }
+
+    /** Add an item to template
+     * 
+     * data should be { template_id, item_id, quantity }
+     * 
+     * Returns { item_id, name, description, department, quantity }
+     * 
+     * Throws NotFoundErorr if the item_id does not exist in db
+     */
+    static async addItem({ template_id, item_id, quantity }){
+        const existCheck = await db.query(
+            `SELECT * 
+            FROM items 
+            WHERE id = $1`,
+            [item_id]
+        );
+
+        if (!existCheck.rows[0]){
+            throw new NotFoundError(`Item not found id: ${item_id}`);
+        }
+
+        const item = existCheck.rows[0];
+
+        const result = await db.query(
+            `INSERT INTO templates_items
+            ( template_id, item_id, quantity )
+            VALUES ($1, $2, $3)
+            RETURNING quantity`,
+            [
+                template_id,
+                item.id, 
+                quantity
+            ]
+        );
+
+        item.item_id = item.id;
+        delete item.id;
+        
+        return {  ...result, ...item  };
     }
 
     /** Find all templates.

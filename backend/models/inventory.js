@@ -12,7 +12,8 @@ class Inventory {
      *
      * data should be { title, templatedBy, inventoryBy }
      *
-     * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy }
+     * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy, itemList }
+     * where itemList is [{ id, name, description, department, template_quantity, inventory_quantity }]
      *
      * Throws BadRequestError if inventory already in database.
      * */

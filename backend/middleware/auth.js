@@ -34,7 +34,7 @@ const authenticateJWT = (req, res, next) =>{
 
 const ensureLoggedIn = (req, res, next) =>{
     try {
-        if (!req.locals.user) throw new UnauthorizedError();
+        if (!res.locals.user) throw new UnauthorizedError();
         return next();
     } catch (err) {
         return next(err);
