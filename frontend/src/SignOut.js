@@ -7,18 +7,21 @@ const SignOut = ({ signOut })=>{
     const navigate = useNavigate();
     
     useEffect(()=>{
-        signOut();
+        const signOutFunc = async()=>{
+            await signOut();
+        }
+        signOutFunc();
         setIsLoggingOut(false);
         navigate("/");
     }, [isLoggingOut])
     
     if (isLoggingOut)
         return (
-            <Container>Logging out..</Container>
+            <Container>Signing out..</Container>
         );
     else{
         return (
-            <Container>Logged out</Container>
+            <Container>Already signed out</Container>
         )
         
     }

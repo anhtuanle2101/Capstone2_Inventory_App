@@ -42,8 +42,8 @@ router.post("/register", async (req, res, next) =>{
     try {
         const validator = jsonschema.validate(req.body, registerSchema);
         checkValidator(validator);
-
         const newUser = await User.register({ ...req.body, isAdmin:false });
+        console.log(newUser);
         const token = createToken(newUser);
         return res.status(201).json({ token });
     } catch (err) {

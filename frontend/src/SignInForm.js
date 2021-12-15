@@ -9,10 +9,10 @@ const SignInForm = ({ signIn })=>{
     const [formData, setFormData] = useState(INIT_DATA);
     const navigate = useNavigate();
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
         const { username, password } = formData;
-        signIn({ username, password });
+        await signIn({ username, password });
         navigate("/");
     }
 

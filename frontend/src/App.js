@@ -12,6 +12,7 @@ import SignUpForm from "./SignUpForm";
 import SignOut from "./SignOut";
 import TemplateList from "./TemplateList";
 import InventoryList from "./InventoryList";
+import Profile from "./Profile";
 
 
 function App() {
@@ -49,10 +50,34 @@ function App() {
     await localStorage.clear();
   }
 
+  // getUser function which get user information from the database with provided username
+  const getUser = async ()=>{
+    const userDetails = await ApiHelper.userGet(currentUser);
+    return userDetails;
+  }
+
+  // updateUser function which update user information with new changes
+  const updateUser = async ({ firstName, lastName, email, password })=>{
+    // validating the provided password
+    const token = await ApiHelper.userSignIn({ username: currentUser, password });
+    if (!token){
+      return;
+    }else{
+      const userDetails = await ApiHelper.userUpdate({ username: currentUser, firstName, lastName, email });
+      return userDetails;
+    }
+  }
+
+
   useEffect(()=>{
     getTokenFromLocalStorage();
     getUserFromLocalStorage();
+    ApiHelper.token = token;
   })
+
+  // useEffect(()=>{
+  //   ApiHelper.token = token;
+  // },[token]);
 
   return (
     <div className="App">
@@ -62,7 +87,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/signin" element={<SignInForm signIn={signIn}/>}/>
-            <Route path="/signup" element={<SignUpForm signUp={signUp}/>}/>
+            <Route path="/signup" element={<SignUpForm signUp={signUp} signIn={signIn}/>}/>
             <Route path="/signout" element={<SignOut signOut={signOut}/>}/>
             <Route path="/templates">
               <Route path="" element={<TemplateList />}></Route>
@@ -70,6 +95,7 @@ function App() {
             <Route path="/inventories">
               <Route path="" element={<InventoryList />}></Route>
             </Route>
+            <Route path="/profile" element={<Profile getUser={getUser} updateUser={updateUser} />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>

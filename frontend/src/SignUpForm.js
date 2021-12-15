@@ -1,18 +1,19 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Button } from "reactstrap";
+import SignInForm from "./SignInForm";
 import "./SignUpForm.css"
 
-const SignUpForm = ({ signUp })=>{
+const SignUpForm = ({ signUp, signIn })=>{
     const INIT_DATA = {username: "", password: "", firstName: "", lastName: "", email: ""};
     const [formData, setFormData] = useState(INIT_DATA);
     const navigate = useNavigate();
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log(formData);
         const { username, password, firstName, lastName, email} = formData;
-        signUp({ username, password, firstName, lastName, email });
+        await signUp({ username, password, firstName, lastName, email });
+        await signIn({ username, password });
         navigate("/");
     }
 
