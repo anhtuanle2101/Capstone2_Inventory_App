@@ -12,7 +12,7 @@ const Home = ()=>{
             <p>Ease at inventory tasks</p>
             {!currentUser?(
                 <Container>
-                    <Link to="/login"><Button color="primary">Log In</Button></Link>
+                    <Link to="/signin"><Button color="primary">Sign In</Button></Link>
                     <Link to="/signup"><Button color="primary">Sign Up</Button></Link>
                 </Container>
             ):(

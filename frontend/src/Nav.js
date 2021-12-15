@@ -12,13 +12,13 @@ const Nav = ()=>{
             <h2><NavLink to="/">Inventory App</NavLink></h2>
             {!currentUser?(
                 <Container>
-                    <NavLink to="/login">Log In</NavLink>
+                    <NavLink to="/signin">Sign In</NavLink>
                     <NavLink to="/signup">Sign Up</NavLink>
                 </Container>
             ):(
                 <Container>
                     <NavLink to="/profile">Profile</NavLink>
-                    <NavLink to="/logout">Log out {currentUser.username}</NavLink>
+                    <NavLink to="/signout">Sign out {currentUser.username}</NavLink>
                 </Container>
                 
             )}  

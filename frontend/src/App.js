@@ -9,6 +9,7 @@ import Home from "./Home";
 import NotFound from "./NotFound";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
+import SignOut from "./SignOut";
 
 
 function App() {
@@ -38,8 +39,8 @@ function App() {
     setTokenToLocalStorage(token);
   }
 
-  // logOut function which log out the currentUser and clears the localStorage;
-  const logOut = async ()=>{
+  // signOut function which log out the currentUser and clears the localStorage;
+  const signOut = async ()=>{
     setToken();
     setCurrentUser();
     ApiHelper.token = null;
@@ -58,8 +59,9 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<SignInForm signIn={signIn}/>}/>
+            <Route path="/signin" element={<SignInForm signIn={signIn}/>}/>
             <Route path="/signup" element={<SignUpForm signUp={signUp}/>}/>
+            <Route path="/signout" element={<SignOut signOut={signOut}/>}/>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>
