@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 import ApiHelper from "./apiHelper";
 import './App.css';
@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "./Home";
 import NotFound from "./NotFound";
+import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
 
 function App() {
@@ -44,6 +46,11 @@ function App() {
     await localStorage.clear();
   }
 
+  useEffect(()=>{
+    getTokenFromLocalStorage();
+    getUserFromLocalStorage();
+  })
+
   return (
     <div className="App">
       <currentUserContext.Provider value={{currentUser}}>
@@ -51,7 +58,8 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Home />}></Route>
-
+            <Route path="/login" element={<SignInForm signIn={signIn}/>}/>
+            <Route path="/signup" element={<SignUpForm signUp={signUp}/>}/>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>

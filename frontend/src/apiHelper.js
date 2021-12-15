@@ -29,33 +29,18 @@ class ApiHelper {
         throw Array.isArray(message) ? message : [message];
         }
     }
-    
+
     // Individual API routes
-    /** Get details on a company by handle. */
-    //   static async getCompany(handle) {
-    //     let res = await this.request(`companies/${handle}`);
-    //     return res.company;
-    //   }
 
     // Users signs up with information
     static async userSignUp({ username, firstName, lastName, password, email }){
         let res = await this.request(`auth/register`, { username, firstName, lastName, password, email }, "post");
-        if (res.error){
-            console.log(res.error.message);
-            return { error: res.error };
-        }else{
-            return res.token;
-        }
+        return { token: res.token };
     }
     // User Signs In with credentials 
     static async userSignIn({ username, password }){
         let res = await this.request(`auth/token`, { username, password }, "post");
-        if (res.error){
-            console.log(res.error);
-            return { error: res.error };
-        }else{
-            return res.token;
-        }
+        return { token: res.token };
     }
 }
 // for now, put token ("testuser" / "password" on class)
