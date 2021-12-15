@@ -3,7 +3,7 @@ import useLocalStorage from "./useLocalStorage";
 import ApiHelper from "./apiHelper";
 import './App.css';
 import currentUserContext from "./currentUserContext";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
 import Home from "./Home";
 import NotFound from "./NotFound";
@@ -47,14 +47,14 @@ function App() {
   return (
     <div className="App">
       <currentUserContext.Provider value={{currentUser}}>
-        <BroswerRouter>
+        <BrowserRouter>
           <Nav />
           <Routes>
             <Route path="/" element={<Home />}></Route>
 
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
-        </BroswerRouter>
+        </BrowserRouter>
       </currentUserContext.Provider>
     </div>
   );
