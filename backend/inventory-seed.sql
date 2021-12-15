@@ -70,6 +70,9 @@ VALUES ('Inventory Dry Food on 11/25/2021',
         2,
         1);
 
+INSERT INTO templates_items (template_id, item_id, quantity)
+VALUES (1, 1, 8), (1, 2, 4), (2, 3, 7), (2, 4, 4);
+
 INSERT INTO inventories_items (inventory_id, item_id, quantity)
 VALUES (1, 1, 10), (1, 2, 5), (2, 3, 5), (2, 4, 5);
 

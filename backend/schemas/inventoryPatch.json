@@ -1,6 +1,6 @@
 {
     "$schema": "",
-    "$id": "",
+    "$id": "http://example.com/auth.json",
     "type": "object",
     "properties": {
       "title": {

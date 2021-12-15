@@ -66,14 +66,13 @@ router.get("/:id", ensureLoggedIn, async (req, res, next) =>{
  * 
  * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy }
  * 
- * Authorization required: admin
+ * Authorization required: logged in users
  */
-router.patch("/:id", ensureAdmin, async (req, res, next) => {
+router.patch("/:id", ensureLoggedIn, async (req, res, next) => {
     try {
-        const validator = jsonschema(req.body, inventoryPatchSchema);
-        checkValidator(validator);
-
-        const inventory = await Inventory.update(id, req.body);
+        // const validator = jsonschema.validate(req.body, inventoryPatchSchema);
+        // checkValidator(validator);
+        const inventory = await Inventory.update(req.params.id, req.body);
         return res.json({ inventory });
     } catch (err) {
         return next(err);

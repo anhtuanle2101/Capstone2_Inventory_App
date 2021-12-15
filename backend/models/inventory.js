@@ -148,7 +148,7 @@ class Inventory {
         const itemListRes = await db.query(
             `SELECT i.id, i.name, i.unit, i.description, i.department, ii.quantity
             FROM items i JOIN inventories_items ii ON i.id = ii.item_id
-            WHERE ii.template_id = $1
+            WHERE ii.inventory_id = $1
             ORDER BY i.id`,
             [id]
         )
@@ -158,43 +158,48 @@ class Inventory {
         return inventory;
     }
 
-    /** Update inventory data with `data`.
+    /** Update inventory data with `data` as itemList.
      *
-     * This is a "partial update" --- it's fine if data doesn't contain all the
-     * fields; this only changes provided ones.
-     *
-     * Data can include: { title, completeFlag }
-     *
-     * Returns { id, title, inventoryDate, completeFlag, templatedBy, inventoryBy }
+     * Returns inventory details with updated itemList
      *
      * Throws NotFoundError if not found.
      */
 
     static async update(id, data) {
-        const { setCols, values } = sqlForPartialUpdate(
-            data,
-            {
-                completeFlag: "complete_flag"
-            });
-        const idVarIdx = "$" + (values.length + 1);
+        const result = await db.query(`
+            SELECT * FROM inventories
+            WHERE id = $1`,
+            [id]);
 
-        const querySql = `UPDATE inventories 
-                        SET ${setCols} 
-                        WHERE id = ${idVarIdx} 
-                        RETURNING id, 
-                                  title,
-                                  inventory_date AS "inventoryDate",
-                                  complete_flag AS "completeFlag",
-                                  templated_by AS "templatedBy",
-                                  inventory_by AS "inventoryBy"`;
+        if (!result.rows[0]) throw new NotFoundError(`No inventory: ${id}`);
+        const { itemList } = data;
 
-        const result = await db.query(querySql, [...values, id]);
+        itemList.map(item=>this.updateItem(id, item.id, item.quantity));
+
         const inventory = result.rows[0];
 
-        if (!inventory) throw new NotFoundError(`No inventory: ${id}`);
+        const itemListRes = await db.query(
+            `SELECT i.id, i.name, i.unit, i.description, i.department, ii.quantity
+            FROM items i JOIN inventories_items ii ON i.id = ii.item_id
+            WHERE ii.inventory_id = $1
+            ORDER BY i.id`,
+            [id]
+        );
+
+        inventory.itemList = itemListRes.rows;
 
         return inventory;
     }
+
+    static async updateItem(inventory_id, item_id, quantity){
+        await db.query(`
+            UPDATE inventories_items
+            SET quantity = $3
+            WHERE inventory_id = $1
+            AND item_id = $2`,
+            [inventory_id, item_id, quantity]);
+    }
+
 
     /** Delete given inventory from database; returns undefined.
      *
