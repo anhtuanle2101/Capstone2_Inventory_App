@@ -2,7 +2,7 @@
 
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
-const { sqlForPartialUpdate } = require("../helpers/sql");
+const { sqlForPartialUpdate } = require("../helper/sql");
 
 /** Related functions for inventories. */
 
@@ -111,10 +111,10 @@ class Inventory {
     static async findAll() {
         let query = `SELECT id,
                             title,
-                            inventoryDate,
-                            completeFlag,
-                            templatedBy,
-                            inventoryBy
+                            inventory_date AS "inventoryDate",
+                            complete_flag AS "completeFlag",
+                            templated_by AS "templatedBy",
+                            inventory_by AS "inventoryBy"
                     FROM inventories`;
         query += " ORDER BY title";
         const inventoriesRes = await db.query(query);
@@ -133,10 +133,10 @@ class Inventory {
         const inventoryRes = await db.query(
             `SELECT id,
                     title,
-                    inventoryDate, 
-                    completeFlag,
-                    templatedBy,
-                    inventoryBy
+                    inventory_date AS "inventoryDate", 
+                    complete_flag AS "completeFlag",
+                    templated_by AS "templatedBy",
+                    inventory_by AS "inventoryBy"
             FROM inventories
             WHERE id = $1`,
             [id]);
@@ -183,10 +183,10 @@ class Inventory {
                         WHERE id = ${idVarIdx} 
                         RETURNING id, 
                                   title,
-                                  inventoryDate,
-                                  completeFlag,
-                                  templatedBy,
-                                  inventoryBy`;
+                                  inventory_date AS "inventoryDate",
+                                  complete_flag AS "completeFlag",
+                                  templated_by AS "templatedBy",
+                                  inventory_by AS "inventoryBy"`;
 
         const result = await db.query(querySql, [...values, id]);
         const inventory = result.rows[0];

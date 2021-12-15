@@ -4,7 +4,7 @@ import { Container } from "reactstrap";
 import { Button } from "reactstrap";
 import "./SignInForm.css"
 
-const LoginForm = ({ signIn })=>{
+const SignInForm = ({ signIn })=>{
     const INIT_DATA = {username: "", password: ""};
     const [formData, setFormData] = useState(INIT_DATA);
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const LoginForm = ({ signIn })=>{
     }
 
     return (
-        <Container className="LoginForm">
+        <Container className="SignInForm">
             <h1>Login Form</h1>
             <form>
                 <Container>
@@ -55,4 +55,4 @@ const LoginForm = ({ signIn })=>{
     )
 }
 
-export default LoginForm;
+export default SignInForm;

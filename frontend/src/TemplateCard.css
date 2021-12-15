@@ -1,0 +1,15 @@
+.TemplateCard a {
+    text-decoration: none;
+    text-align: left;
+    color: black;
+}
+
+.TemplateCard a:hover {
+    color: blue;
+}
+
+.TemplateCard {
+    border: 1px solid black;
+    margin: 1.2rem;
+    padding: 0.5rem;
+}

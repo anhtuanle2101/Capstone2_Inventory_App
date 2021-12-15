@@ -10,6 +10,8 @@ import NotFound from "./NotFound";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 import SignOut from "./SignOut";
+import TemplateList from "./TemplateList";
+import InventoryList from "./InventoryList";
 
 
 function App() {
@@ -62,6 +64,12 @@ function App() {
             <Route path="/signin" element={<SignInForm signIn={signIn}/>}/>
             <Route path="/signup" element={<SignUpForm signUp={signUp}/>}/>
             <Route path="/signout" element={<SignOut signOut={signOut}/>}/>
+            <Route path="/templates">
+              <Route path="" element={<TemplateList />}></Route>
+            </Route>
+            <Route path="/inventories">
+              <Route path="" element={<InventoryList />}></Route>
+            </Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>

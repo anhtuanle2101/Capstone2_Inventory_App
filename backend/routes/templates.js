@@ -5,7 +5,7 @@ const jsonschema = require("jsonschema");
 const express = require("express");
 const router = new express.Router();
 const { checkValidator } = require("../helper/helperFunc");
-const { ensureAdmin } = require("../middleware/auth");
+const { ensureAdmin, ensureLoggedIn } = require("../middleware/auth");
 const templateNewSchema = require("../schemas/templateNew.json");
 const templatePatchSchema = require("../schemas/templatePatch.json");
 const Template = require("../models/template");
@@ -35,7 +35,7 @@ router.post("/", ensureAdmin, async (req, res, next) =>{
  * 
  * Authorization required: logged-in users
  */
-router.get("/", async (req, res, next) => {
+router.get("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const templates = await Template.findAll();
         return res.json({ templates });
@@ -49,9 +49,9 @@ router.get("/", async (req, res, next) => {
  * Returns { id, name, description, createdAt, createdBy, itemList }
  * where itemList is { itemList: [ { id, name, unit, description, deparment, quantity }, ... ] }
  * 
- * Authorization required: none
+ * Authorization required: logged-in users
 */
-router.get("/:id", async (req, res, next) =>{
+router.get("/:id", ensureLoggedIn, async (req, res, next) =>{
     try {
         const template = await Template.get(req.params.id);
         return res.json({ template });

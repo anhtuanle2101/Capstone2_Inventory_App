@@ -32,6 +32,21 @@ class ApiHelper {
 
     // Individual API routes
 
+    // *** Inventories Routes ***
+    // Get all inventories
+    static async inventoryGetAll(){
+        let res = await this.request(`inventories`);
+        return res.inventories;
+    }
+
+    // ** Templates Routes ***
+    // Get all templates
+    static async templateGetAll(){
+        let res = await this.request(`templates`);
+        return res.templates;
+    }
+
+    // *** Users Routes ***
     // Users signs up with information
     static async userSignUp({ username, firstName, lastName, password, email }){
         let res = await this.request(`auth/register`, { username, firstName, lastName, password, email }, "post");
@@ -42,6 +57,7 @@ class ApiHelper {
         let res = await this.request(`auth/token`, { username, password }, "post");
         return { token: res.token };
     }
+    
 }
 // for now, put token ("testuser" / "password" on class)
 ApiHelper.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +

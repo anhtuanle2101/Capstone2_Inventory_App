@@ -17,6 +17,8 @@ const Nav = ()=>{
                 </Container>
             ):(
                 <Container>
+                    <NavLink to="/templates">Template</NavLink>
+                    <NavLink to="/inventories">Inventory</NavLink>
                     <NavLink to="/profile">Profile</NavLink>
                     <NavLink to="/signout">Sign out {currentUser.username}</NavLink>
                 </Container>
