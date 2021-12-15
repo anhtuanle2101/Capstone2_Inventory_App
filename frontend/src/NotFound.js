@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NotFound = ()=>{
     return (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Card, CardBody,
     CardTitle, CardText } from "reactstrap";
 import "./TemplateCard.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TemplateCard = ({ id, name, description, date, user })=>{
     

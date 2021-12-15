@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Container } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignOut = ({ signOut })=>{
     const [isLoggingOut, setIsLoggingOut] = useState(true);

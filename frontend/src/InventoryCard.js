@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Card, CardBody,
     CardTitle, CardText } from "reactstrap";
 import "./InventoryCard.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const InventoryCard = ({ id, title, date, complete, template, user })=>{
     

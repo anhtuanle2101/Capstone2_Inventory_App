@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Button } from "reactstrap";
 import currentUserContext from "./currentUserContext";
 import "./Profile.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Profile = ({ getUser, updateUser })=>{
     const INITAL = { firstName:"", lastName:"", email:"", password:"" }

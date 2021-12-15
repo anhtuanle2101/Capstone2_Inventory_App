@@ -1,3 +1,15 @@
 .Home {
     text-align: center;
+    vertical-align: center;
+    min-height: 70vh;
+    padding-top: 200px;
+}
+
+.Home h1 {
+    margin-bottom: 1.7rem;
+}
+
+.Home button {
+    margin: 1.13rem;
+    font-size: 1.1rem;
 }

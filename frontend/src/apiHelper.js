@@ -51,6 +51,11 @@ class ApiHelper {
         return res.inventory;
     }
 
+    static async inventoryCreate(data){
+        let res = await this.request(`inventories`, data , "post");
+        return res.inventory;
+    }
+
     // ** Templates Routes ***
     // Get all templates
     static async templateGetAll(){

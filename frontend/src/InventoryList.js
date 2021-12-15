@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Container } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Container } from "reactstrap";
 import InventoryCard from "./InventoryCard";
 import "./InventoryList.css";
 // Api helper
 import ApiHelper from "./apiHelper";
-import currentUserContext from "./currentUserContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const InventoryList = ()=>{
 

@@ -3,6 +3,7 @@
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helper/sql");
+const Template = require("./template");
 
 /** Related functions for inventories. */
 
@@ -48,9 +49,9 @@ class Inventory {
 
         const result = await db.query(
             `INSERT INTO inventories
-            ( title, templatedBy, inventoryBy )
+            ( title, templated_by, inventory_by )
             VALUES ($1, $2, $3)
-            RETURNING id, title, inventoryDate, completeFlag, templatedBy, inventoryBy`,
+            RETURNING id, title, inventory_date AS "inventoryDate", complete_flag AS "completeFlag", templated_by AS "templatedBy", inventory_by AS "inventoryBy"`,
             [
                 title,
                 templatedBy,
@@ -58,6 +59,13 @@ class Inventory {
             ]
         );
         const inventory = result.rows[0];
+
+        const { itemList } = await Template.get(templatedBy);
+        
+        console.log(itemList);
+        for (let item of itemList){
+            await this.addItem(inventory.id, item.id, item.quantity);
+        }
 
         return inventory;
     }
@@ -71,7 +79,7 @@ class Inventory {
      *  Throws NotFound Error if the item does not exist in the database
      */
 
-    static async addItem({ inventory_id, item_id, quantity }){
+    static async addItem(inventory_id, item_id, quantity ){
         const existCheck = await db.query(
             `SELECT * 
             FROM items 

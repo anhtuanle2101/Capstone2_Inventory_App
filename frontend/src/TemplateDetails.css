@@ -1,0 +1,11 @@
+.TemplateDetails input {
+    margin: 0.3rem;
+}
+
+.TemplateDetails button {
+    display: block;
+}
+
+.TemplateDetails {
+    padding-top: 100px;
+}

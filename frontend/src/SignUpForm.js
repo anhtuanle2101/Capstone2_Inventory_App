@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Button } from "reactstrap";
-import SignInForm from "./SignInForm";
 import "./SignUpForm.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUpForm = ({ signUp, signIn })=>{
     const INIT_DATA = {username: "", password: "", firstName: "", lastName: "", email: ""};

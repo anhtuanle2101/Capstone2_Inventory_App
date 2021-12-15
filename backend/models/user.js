@@ -124,7 +124,8 @@ class User {
 
   static async get(username) {
     const userRes = await db.query(
-          `SELECT username,
+          `SELECT id,
+                  username,
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,

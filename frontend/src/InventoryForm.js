@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Button } from "reactstrap";
 import currentUserContext from "./currentUserContext";
 import "./InventoryForm.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const InventoryForm = ({ getInventory, updateInventory })=>{
     const INITAL = { itemList:[] }
@@ -47,6 +48,7 @@ const InventoryForm = ({ getInventory, updateInventory })=>{
                 <p>Templated By Template ID: {formData.templatedBy}</p>
             </Container>
             <Container>
+                <h5>Inventory</h5>
                 <form>
                     {formData.itemList.map(item=><Container key={item.id}><label htmlFor={item.name}>{item.name} qty: </label><input id={item.name} name={item.name} value={item.quantity} placeholder={item.name} onChange={handleChange}></input></Container>)}
                     <Button onClick={handleSubmit}>Save Changes</Button>

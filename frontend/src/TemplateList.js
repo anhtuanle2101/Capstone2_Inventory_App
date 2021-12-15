@@ -5,9 +5,9 @@ import "./TemplateList.css";
 // Api helper
 import ApiHelper from "./apiHelper";
 import currentUserContext from "./currentUserContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TemplateList = ()=>{
-    const INIT_DATA = { "searchTerm" : "" };
 
     const [ templateList, setTemplateList ] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,11 +33,6 @@ const TemplateList = ()=>{
             <h3>Pick a template to create a new inventory</h3>
 
             {isAdmin?<Button>Create a new Template</Button>:""}
-            {/* Search Box */}
-            {/* <form>
-                <input type="search" placeholder="Enter search term" id="searchTerm" name="searchTerm" onChange={handleChange}/>
-                <Button onClick={handleSubmit}>Search</Button>
-            </form> */}
             {/* Template List */}
             {templateList.map(template=><TemplateCard key={template.id} id={template.id} name={template.name} description={template.description} date={template.createdAt} user={template.createdBy}/>)}
         </Container>

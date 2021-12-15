@@ -4,7 +4,7 @@ import ApiHelper from "./apiHelper";
 import './App.css';
 import currentUserContext from "./currentUserContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "./Nav";
+import NavTab from "./Nav";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import SignInForm from "./SignInForm";
@@ -79,6 +79,12 @@ function App() {
     return templateDetails;
   }
 
+  // create Inventory function which will create new inventory with provided info
+  const createInventory = async (data)=>{
+    const inventoryDetails = await ApiHelper.inventoryCreate(data);
+    return inventoryDetails;
+  }
+
   // getInventory function which get the inventory information from the db with provided id
   const getInventory = async (id)=>{
     const inventoryDetails = await ApiHelper.inventoryGet(id);
@@ -104,7 +110,7 @@ function App() {
     <div className="App">
       <currentUserContext.Provider value={{currentUser, isAdmin}}>
         <BrowserRouter>
-          <Nav />
+          <NavTab />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/signin" element={<SignInForm signIn={signIn}/>}/>
@@ -112,7 +118,7 @@ function App() {
             <Route path="/signout" element={<SignOut signOut={signOut}/>}/>
             <Route path="/templates">
               <Route path="" element={<TemplateList />}></Route>
-              <Route path=":id" element={<TemplateDetails getTemplate={getTemplate}/>}></Route>
+              <Route path=":id" element={<TemplateDetails getTemplate={getTemplate} createInventory={createInventory}/>}></Route>
             </Route>
             <Route path="/inventories">
               <Route path="" element={<InventoryList />}></Route>

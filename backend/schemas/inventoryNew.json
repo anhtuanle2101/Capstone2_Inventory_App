@@ -14,7 +14,7 @@
         "maxLength": 30
       },
       "inventoryBy": {
-        "type": "string",
+        "type": "number",
         "minLength": 1,
         "maxLength": 30
       }
