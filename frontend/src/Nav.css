@@ -1,0 +1,9 @@
+.Nav a {
+    text-decoration: none;
+    margin: 0.5rem;
+}
+
+.Nav {
+    display: flex;
+    justify-content: space-between;
+}

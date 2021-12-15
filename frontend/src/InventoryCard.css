@@ -1,5 +1,4 @@
-.InventoryCard a {
-    text-decoration: none;
+.InventoryCard {
     text-align: left;
     color: black;
 }

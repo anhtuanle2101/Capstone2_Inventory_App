@@ -11,7 +11,7 @@ const TemplateCard = ({ id, name, description, date, user })=>{
             {/* <Link to={`/inventories/${id}`}> */}
                 <Card >
                     <CardBody>
-                        <CardTitle>{name}</CardTitle>
+                        <CardTitle><h4>{name}</h4></CardTitle>
                         <CardText>
                         Date: {(new Date(date)).toLocaleDateString("en-US")}
                         </CardText>

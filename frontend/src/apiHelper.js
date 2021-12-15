@@ -16,9 +16,8 @@ class ApiHelper {
     static async request(endpoint, data = {}, method = "get") {
         console.debug("API Call:", endpoint, data, method);
         //there are multiple ways to pass an authorization token, this is how you pass it in the header.
-        //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
+        //this has been provided to show you another way to pass the token. 
         const url = `${BASE_URL}/${endpoint}`;
-        console.debug(ApiHelper.token);
         const headers = { Authorization: `Bearer ${ApiHelper.token}` };
         const params = (method === "get")
             ? data
@@ -56,7 +55,9 @@ class ApiHelper {
     }
     // User Signs In with credentials 
     static async userSignIn({ username, password }){
+        console.log("Signing in")
         let res = await this.request(`auth/token`, { username, password }, "post");
+        
         return { token: res.token };
     }
     // User get information with provided username

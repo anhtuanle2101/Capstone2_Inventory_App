@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Button } from "reactstrap";
 import TemplateCard from "./TemplateCard";
+import "./TemplateList.css";
 // Api helper
 import ApiHelper from "./apiHelper";
+import currentUserContext from "./currentUserContext";
 
 const TemplateList = ()=>{
     const INIT_DATA = { "searchTerm" : "" };
 
     const [ templateList, setTemplateList ] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    // const [formData, setFormData] = useState(INIT_DATA);
+    const { isAdmin } = useContext(currentUserContext);
     
 
     useEffect(()=>{
@@ -22,24 +24,13 @@ const TemplateList = ()=>{
         
     }, [])
 
-    // const handleSubmit = async (e)=>{
-    //     e.preventDefault();
-    //     const { searchTerm } = formData;
-    //     // const companies = await filterCompany(searchTerm);
-    //     // setCompanyList(companies);
-    // }
-
-    // const handleChange = (e)=>{
-    //     const {name, value} = e.target;
-    //     setFormData(data=>({...data, [name]:value}));
-    // }
-
     if (isLoading){
         return (<p>Loading... </p>)
     }
     return (
         <Container className="TemplateList">
             <h1>Template List</h1>
+            {isAdmin?<Button>Create a new Template</Button>:""}
             {/* Search Box */}
             {/* <form>
                 <input type="search" placeholder="Enter search term" id="searchTerm" name="searchTerm" onChange={handleChange}/>

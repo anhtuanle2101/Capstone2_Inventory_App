@@ -20,6 +20,7 @@ function App() {
 
   const [token, setToken, setTokenToLocalStorage, getTokenFromLocalStorage] = useLocalStorage("token");
   const [currentUser, setCurrentUser, setUserToLocalStorage, getUserFromLocalStorage] = useLocalStorage("user");
+  const [isAdmin, setIsAdmin, setIsAdminToLocalStorage, getIsAdminFromLocalStorage] = useLocalStorage("isAdmin");
 
   // signUp function which utilizes the ApiHelper userSignUp function
   // Sign Up parameters: { username, password, firstName, lastName, email }
@@ -37,17 +38,22 @@ function App() {
   const signIn = async ({ username, password })=>{
     const result = await ApiHelper.userSignIn({ username, password });
     const { token } = result;
+    console.log(token);
     setCurrentUser(username);
-    setToken(token);
     setUserToLocalStorage(username);
+    setToken(token);
     setTokenToLocalStorage(token);
+
+    const user = await ApiHelper.userGet(username);
+    setIsAdminToLocalStorage(user.isAdmin);
   }
 
   // signOut function which log out the currentUser and clears the localStorage;
   const signOut = async ()=>{
     setToken();
     setCurrentUser();
-    ApiHelper.token = null;
+    setIsAdmin();
+    ApiHelper.token = undefined;
     await localStorage.clear();
   }
 
@@ -73,16 +79,14 @@ function App() {
   useEffect(()=>{
     getTokenFromLocalStorage();
     getUserFromLocalStorage();
+    getIsAdminFromLocalStorage();
     ApiHelper.token = token;
   })
 
-  // useEffect(()=>{
-  //   ApiHelper.token = token;
-  // },[token]);
 
   return (
     <div className="App">
-      <currentUserContext.Provider value={{currentUser}}>
+      <currentUserContext.Provider value={{currentUser, isAdmin}}>
         <BrowserRouter>
           <Nav />
           <Routes>
