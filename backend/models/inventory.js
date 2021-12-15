@@ -62,6 +62,47 @@ class Inventory {
         return inventory;
     }
 
+    /** Add an item to the inventory
+     * 
+     *  @params Accepts an object of the inventory id, item id and a quantity
+     *  
+     *  Returns { item_id, name, description, department, quantity }
+     * 
+     *  Throws NotFound Error if the item does not exist in the database
+     */
+
+    static async addItem({ inventory_id, item_id, quantity }){
+        const existCheck = await db.query(
+            `SELECT * 
+            FROM items 
+            WHERE id = $1`,
+            [item_id]
+        );
+
+        if (!existCheck.rows[0]){
+            throw new NotFoundError(`Item not found id: ${item_id}`);
+        }
+
+        const item = existCheck.rows[0];
+
+        const result = await db.query(
+            `INSERT INTO inventories_items
+            ( inventory_id, item_id, quantity )
+            VALUES ($1, $2, $3)
+            RETURNING quantity`,
+            [
+                inventory_id,
+                item.id, 
+                quantity
+            ]
+        );
+
+        item.item_id = item.id;
+        delete item.id;
+        
+        return {  ...result, ...item  };
+    }
+
     /** Find all inventories.
      *
      * Returns [{ id, title, inventoryDate, completeFlag, templatedBy, inventoryBy }, ...]
@@ -175,4 +216,4 @@ class Inventory {
 }
 
 
-module.exports = inventory;
+module.exports = Inventory;
