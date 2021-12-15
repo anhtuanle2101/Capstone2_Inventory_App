@@ -12,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const inventoryRoutes = require("./routes/inventories");
 const templateRoutes = require("./routes/templates");
+const itemRoutes = require("./routes/items");
 const morgan = require("morgan");
 
 const app = express();
@@ -25,6 +26,7 @@ app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/inventories", inventoryRoutes);
 app.use("/templates", templateRoutes);
+app.use("/items", itemRoutes);
 
 
 

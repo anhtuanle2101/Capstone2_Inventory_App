@@ -17,6 +17,7 @@ const Nav = ()=>{
                 </Container>
             ):(
                 <Container>
+                    <NavLink to="/items">Items</NavLink>
                     <NavLink to="/templates">Template</NavLink>
                     <NavLink to="/inventories">Inventory</NavLink>
                     <NavLink to="/profile">Profile</NavLink>

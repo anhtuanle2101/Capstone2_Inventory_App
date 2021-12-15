@@ -13,6 +13,7 @@ import SignOut from "./SignOut";
 import TemplateList from "./TemplateList";
 import InventoryList from "./InventoryList";
 import Profile from "./Profile";
+import ItemList from "./ItemList";
 
 
 function App() {
@@ -94,6 +95,9 @@ function App() {
             </Route>
             <Route path="/inventories">
               <Route path="" element={<InventoryList />}></Route>
+            </Route>
+            <Route path="/items">
+              <Route path="" element={<ItemList />}></Route>
             </Route>
             <Route path="/profile" element={<Profile getUser={getUser} updateUser={updateUser} />}></Route>
             <Route path="*" element={<NotFound />}></Route>

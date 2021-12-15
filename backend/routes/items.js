@@ -5,7 +5,7 @@ const jsonschema = require("jsonschema");
 const express = require("express");
 const router = new express.Router();
 const { checkValidator } = require("../helper/helperFunc");
-const { ensureAdmin } = require("../middleware/auth");
+const { ensureAdmin, ensureLoggedIn } = require("../middleware/auth");
 const itemNewSchema = require("../schemas/itemNew.json");
 const itemPatchSchema = require("../schemas/itemPatch.json");
 const Item = require("../models/item");
@@ -35,7 +35,7 @@ router.post("/", ensureAdmin, async (req, res, next) =>{
  * 
  * Authorization required: admin
  */
-router.get("/", ensureAdmin, async (req, res, next) => {
+router.get("/", ensureLoggedIn, async (req, res, next) => {
     try {
         const items = await Item.findAll();
         return res.json({ items });
@@ -50,7 +50,7 @@ router.get("/", ensureAdmin, async (req, res, next) => {
  * 
  * Authorization required: admin
 */
-router.get("/:id", ensureAdmin, async (req, res, next) =>{
+router.get("/:id", ensureLoggedIn, async (req, res, next) =>{
     try {
         const item = await Item.get(req.params.id);
         return res.json({ item });

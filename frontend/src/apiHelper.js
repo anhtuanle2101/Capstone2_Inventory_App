@@ -69,6 +69,13 @@ class ApiHelper {
         let res = await this.request(`users/${username}`, { firstName, lastName, email }, "patch");
         return res.user;
     }
+
+    // *** Items Routes ***
+    // Items get all 
+    static async itemGetAll(){
+        let res = await this.request(`items`);
+        return res.items;
+    }
     
 }
 // for now, put token ("testuser" / "password" on class)
