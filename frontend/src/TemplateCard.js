@@ -8,7 +8,7 @@ const TemplateCard = ({ id, name, description, date, user })=>{
     
     return (
         <Container className="TemplateCard">
-            {/* <Link to={`/inventories/${id}`}> */}
+            <Link to={`/templates/${id}`}>
                 <Card >
                     <CardBody>
                         <CardTitle><h4>{name}</h4></CardTitle>
@@ -23,7 +23,7 @@ const TemplateCard = ({ id, name, description, date, user })=>{
                         </CardText>
                     </CardBody>
                 </Card>
-            {/* </Link> */}
+            </Link>
             
         </Container>
     )

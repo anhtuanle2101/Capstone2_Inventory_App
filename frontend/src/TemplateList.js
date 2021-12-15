@@ -30,6 +30,8 @@ const TemplateList = ()=>{
     return (
         <Container className="TemplateList">
             <h1>Template List</h1>
+            <h3>Pick a template to create a new inventory</h3>
+
             {isAdmin?<Button>Create a new Template</Button>:""}
             {/* Search Box */}
             {/* <form>

@@ -1,13 +1,17 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "reactstrap";
 import { Button } from "reactstrap";
+import currentUserContext from "./currentUserContext";
 import "./SignInForm.css"
 
 const SignInForm = ({ signIn })=>{
     const INIT_DATA = {username: "", password: ""};
     const [formData, setFormData] = useState(INIT_DATA);
     const navigate = useNavigate();
+    const { currentUser } = useContext(currentUserContext);
+
+    if (currentUser) navigate("/");
 
     const handleSubmit = async (e)=>{
         e.preventDefault();

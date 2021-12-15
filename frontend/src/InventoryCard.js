@@ -8,7 +8,7 @@ const InventoryCard = ({ id, title, date, complete, template, user })=>{
     
     return (
         <Container className="InventoryCard">
-            {/* <Link to={`/inventories/${id}`}> */}
+            <Link to={`/inventories/${id}`}>
                 <Card >
                     <CardBody>
                         <CardTitle><h4>{title}</h4></CardTitle>
@@ -26,7 +26,7 @@ const InventoryCard = ({ id, title, date, complete, template, user })=>{
                         </CardText>
                     </CardBody>
                 </Card>
-            {/* </Link> */}
+            </Link>
             
         </Container>
     )

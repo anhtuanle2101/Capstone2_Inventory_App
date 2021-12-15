@@ -11,9 +11,11 @@ import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 import SignOut from "./SignOut";
 import TemplateList from "./TemplateList";
+import TemplateDetails from "./TemplateDetails";
 import InventoryList from "./InventoryList";
 import Profile from "./Profile";
 import ItemList from "./ItemList";
+import InventoryForm from "./InventoryForm";
 
 
 function App() {
@@ -38,14 +40,10 @@ function App() {
   const signIn = async ({ username, password })=>{
     const result = await ApiHelper.userSignIn({ username, password });
     const { token } = result;
-    console.log(token);
     setCurrentUser(username);
     setUserToLocalStorage(username);
     setToken(token);
     setTokenToLocalStorage(token);
-
-    const user = await ApiHelper.userGet(username);
-    setIsAdminToLocalStorage(user.isAdmin);
   }
 
   // signOut function which log out the currentUser and clears the localStorage;
@@ -75,6 +73,24 @@ function App() {
     }
   }
 
+  // getTemplate function which get template information from the db with provided id
+  const getTemplate = async (id)=>{
+    const templateDetails = await ApiHelper.templateGet(id);
+    return templateDetails;
+  }
+
+  // getInventory function which get the inventory information from the db with provided id
+  const getInventory = async (id)=>{
+    const inventoryDetails = await ApiHelper.inventoryGet(id);
+    return inventoryDetails;
+  }
+
+  // updateInventory function which update the inventory information with changes
+  const updateInventory = async (id, itemList)=>{
+    const res = await ApiHelper.inventoryUpdate(id, itemList);
+    return res;
+  }
+
 
   useEffect(()=>{
     getTokenFromLocalStorage();
@@ -96,9 +112,11 @@ function App() {
             <Route path="/signout" element={<SignOut signOut={signOut}/>}/>
             <Route path="/templates">
               <Route path="" element={<TemplateList />}></Route>
+              <Route path=":id" element={<TemplateDetails getTemplate={getTemplate}/>}></Route>
             </Route>
             <Route path="/inventories">
               <Route path="" element={<InventoryList />}></Route>
+              <Route path=":id" element={<InventoryForm getInventory={getInventory} updateInventory={updateInventory}/>}></Route>
             </Route>
             <Route path="/items">
               <Route path="" element={<ItemList />}></Route>

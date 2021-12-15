@@ -18,7 +18,7 @@ class ApiHelper {
         //there are multiple ways to pass an authorization token, this is how you pass it in the header.
         //this has been provided to show you another way to pass the token. 
         const url = `${BASE_URL}/${endpoint}`;
-        const headers = { Authorization: `Bearer ${ApiHelper.token}` };
+        const headers = ApiHelper.token?{ Authorization: `Bearer ${ApiHelper.token}` }:"";
         const params = (method === "get")
             ? data
             : {};
@@ -40,11 +40,27 @@ class ApiHelper {
         return res.inventories;
     }
 
+    static async inventoryGet(id){
+        let res = await this.request(`inventories/${id}`);
+        console.log(res.inventory);
+        return res.inventory;
+    }
+
+    static async inventoryUpdate(id, itemList){
+        let res = await this.request(`inventories/${id}`, { itemList }, "patch");
+        return res.inventory;
+    }
+
     // ** Templates Routes ***
     // Get all templates
     static async templateGetAll(){
         let res = await this.request(`templates`);
         return res.templates;
+    }
+
+    static async templateGet(id){
+        let res = await this.request(`templates/${id}`);
+        return res.template;
     }
 
     // *** Users Routes ***

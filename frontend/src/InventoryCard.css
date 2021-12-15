@@ -3,6 +3,11 @@
     color: black;
 }
 
+.InventoryCard a {
+    color: black;
+    text-decoration: none;
+}
+
 .InventoryCard a:hover {
     color: blue;
 }

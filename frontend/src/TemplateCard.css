@@ -1,5 +1,9 @@
 .TemplateCard {
     text-align: left;
+}
+
+.TemplateCard a {
+    text-decoration: none;
     color: black;
 }
 
